@@ -2,12 +2,28 @@ from selenium import webdriver as driver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 import pandas as pd
+from tkinter import *
 
 from selenium.webdriver.common.by import By
 
+#VAR
+color_bg = '#282A36'
+font = 'arial 11'
+color_fg = 'white'
+color_bt = '#4F729A'
 endereco = []
 
-def cep_is_valid(cep) -> str:
+
+root = Tk()
+root.config(background=color_bg)
+root.title('Buscar Cep')
+root.geometry('300x300+500+200')
+
+
+
+    
+
+def cep_is_valid(cep):
     
     if cep.isdigit():
 
@@ -46,9 +62,23 @@ def create_dataFrame(dados):
 
     return print('df salvo!')
     
-def search_cep() -> str:
+def search_cep():
     cep = str(input('digite o cep: '))
     cep_is_valid(cep)
+
+label = Label(root,
+              text='Cep',
+              bg=color_bg,
+              fg=color_fg,
+              font=font).grid(row=0,column=0)
+
+button_pesquisar = Button(root,
+                          text='pesquisar',
+                          bg=color_bt,
+                          fg=color_fg,
+                          font=font).grid(row=0,column=2)
+
+input_pesquia = Entry(root).grid(row=0,column=1)
 
 options = driver.ChromeOptions()
 options.add_argument('--headless=new')
@@ -63,7 +93,8 @@ dados =  browser.find_elements(By.XPATH,'//td')
 
 create_dataFrame(dados)
 
-print('Finalizado!')
 
-browser.quit()
+browser.quiT()
+root.mainloop()
+
 
